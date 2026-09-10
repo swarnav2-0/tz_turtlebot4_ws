@@ -29,13 +29,13 @@ ARGUMENTS = [
                           description='Robot namespace'),
     DeclareLaunchArgument('rviz', default_value='false',
                           choices=['true', 'false'], description='Start rviz.'),
-    DeclareLaunchArgument('rviz_config',
-                          default_value=PathJoinSubstitution([
-                              FindPackageShare('turtlebot4_ignition_bringup'),
-                              'rviz',
-                              'robot_tz.rviz'
-                          ]),
-                          description='Path to RViz config file.'),
+    # DeclareLaunchArgument('rviz_config',
+    #                       default_value=PathJoinSubstitution([
+    #                           FindPackageShare('turtlebot4_ignition_bringup'),
+    #                           'rviz',
+    #                           'robot_tz.rviz'
+    #                       ]),                                               
+    #                       description='Path to RViz config file.'),           #PB
     DeclareLaunchArgument('world', default_value='arena',
                           description='Ignition World'),
     DeclareLaunchArgument('model', default_value='lite',
@@ -71,7 +71,7 @@ def generate_launch_description():
         launch_arguments=[
             ('namespace', LaunchConfiguration('namespace')),
             ('rviz', LaunchConfiguration('rviz')),
-            ('config', LaunchConfiguration('rviz_config')),
+            # ('config', LaunchConfiguration('rviz_config')), #PB
             ('x', LaunchConfiguration('x')),
             ('y', LaunchConfiguration('y')),
             ('z', LaunchConfiguration('z')),
