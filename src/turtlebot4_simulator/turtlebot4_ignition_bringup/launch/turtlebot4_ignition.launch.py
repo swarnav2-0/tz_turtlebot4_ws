@@ -22,15 +22,23 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 
+from launch_ros.substitutions import FindPackageShare
 
 ARGUMENTS = [
     DeclareLaunchArgument('namespace', default_value='',
                           description='Robot namespace'),
     DeclareLaunchArgument('rviz', default_value='false',
                           choices=['true', 'false'], description='Start rviz.'),
-    DeclareLaunchArgument('world', default_value='warehouse',
+    DeclareLaunchArgument('rviz_config',
+                          default_value=PathJoinSubstitution([
+                              FindPackageShare('turtlebot4_ignition_bringup'),
+                              'rviz',
+                              'robot_tz.rviz'
+                          ]),
+                          description='Path to RViz config file.'),
+    DeclareLaunchArgument('world', default_value='arena',
                           description='Ignition World'),
-    DeclareLaunchArgument('model', default_value='standard',
+    DeclareLaunchArgument('model', default_value='lite',
                           choices=['standard', 'lite'],
                           description='Turtlebot4 Model'),
 ]
@@ -63,6 +71,7 @@ def generate_launch_description():
         launch_arguments=[
             ('namespace', LaunchConfiguration('namespace')),
             ('rviz', LaunchConfiguration('rviz')),
+            ('config', LaunchConfiguration('rviz_config')),
             ('x', LaunchConfiguration('x')),
             ('y', LaunchConfiguration('y')),
             ('z', LaunchConfiguration('z')),
